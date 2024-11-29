@@ -5,29 +5,30 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def tx():
+def evm_tx_native():
 
     request_json = {
-        "vault_id": os.getenv("FORDEFI_API_TOKEN"),
-        "note": "Hello Mom!",
         "signer_type": "api_signer",
+        "vault_id": os.getenv("EVM_VAUL_ID"),
+        "note": "hello mom",
         "type": "evm_transaction",
         "details": {
-            "type": "evm_raw_transaction",
-            "use_secure_node": False,
-            "chain": "ethereum_mainnet",
+            "type": "evm_transfer",
             "gas": {
                 "type": "priority",
                 "priority_level": "medium"
             },
             "to": "0x83c1C2a52d56dFb958C52831a3D683cFAfC34c75",
-            "value": "0",
-            "data": {
-                "type": "full_details",
-                "method_name": "mintPublic",
-                "method_arguments": {
-                    "quantity": "6"
+            "asset_identifier": {
+                "type": "evm",
+                "details": {
+                    "type": "native",
+                    "chain": "evm_ethereum_mainnet"
                 }
+            },
+            "value": {
+                "type": "value",
+                "value": "580000000000000"
             }
         }
     }
