@@ -1,4 +1,4 @@
-__all__ = ['evm_tx_native', 'sol_tx_native']
+__all__ = ['evm_tx_native', 'sol_tx_native', 'sui_tx_native']
 
 from dotenv import load_dotenv
 
@@ -6,7 +6,7 @@ load_dotenv()
 
 def evm_tx_native(vault_id, destination, custom_note, value):
 
-    print(f"Preparing tx for {value} gwei!")
+    print(f"⚙️ Preparing tx for {value} gwei!")
 
     """
     Native ETH transfer
@@ -45,7 +45,7 @@ def evm_tx_native(vault_id, destination, custom_note, value):
 
 def sol_tx_native(vault_id, destination, custom_note, value):
 
-    print(f"Preparing transaction for {value} lamports!")
+    print(f"⚙️ Preparing transaction for {value} lamports!")
 
     request_json = {
 
@@ -71,3 +71,32 @@ def sol_tx_native(vault_id, destination, custom_note, value):
     }
     
     return request_json
+
+def sui_tx_native(vault_id, destination, custom_note, value):
+
+    print(f"⚙️ Preparing transaction for {value} mist!")
+
+    {
+    "signer_type": "api_signer",
+    "type": "sui_transaction",
+    "details": {
+        "type": "sui_transfer",
+        "to": destination,
+        "value": {
+            "type": "value",
+            "value": value
+        },
+        "gas_config": {
+            "payment": []
+        },
+        "asset_identifier": {
+            "type": "sui",
+            "details": {
+                "type": "native",
+                "chain": "sui_mainnet"
+            }
+        }
+    },
+    "note": custom_note,
+    "vault_id": vault_id
+}

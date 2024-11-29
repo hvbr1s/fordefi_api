@@ -4,26 +4,25 @@ import datetime
 import ecdsa
 import hashlib
 from dotenv import load_dotenv
-from api_request.json_request import evm_tx_native, sol_tx_native
-from api_request.broadcast import broadcast_tx
+from api_requests.tx_constructor import evm_tx_native, sol_tx_native, sui_tx_native
+from api_requests.broadcast import broadcast_tx
 
 load_dotenv()
 
-## User inputs
-
-vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower()
-destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip()
+## User interface
+vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower() or "default"
+destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip() or "default"
 
 while True:
-    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM): ").strip().lower()
-    if ecosystem in ["sol", "evm"]:
+    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI): ").strip().lower()
+    if ecosystem in ["sol", "evm", "sui"]:
         break
     else:
         print("❌ Invalid input. Please choose SOL or EVM")
 
-value =  input("🌐 Ok! How much would you like to spend? Please use SOL or ETH as unit: ").strip().lower()
+value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI or ETH as unit: ").strip().lower()
 
-custom_note = input("🗒️  Would you like to add a note? ").strip().lower()
+custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
 print(f"🚀 Excellent! Sending from Vault {vault_id.capitalize()} to {destination} on {ecosystem.upper()}.")
 
@@ -31,6 +30,10 @@ print(f"🚀 Excellent! Sending from Vault {vault_id.capitalize()} to {destinati
 
 if ecosystem == "sol":
     try:
+        if vault_id == "default":
+            vault_id = os.getenv("SOL_VAULT_ID") # default vault
+        if destination == "default":
+            destination = "8o6kJ9gPNMnRAgdyWLt6Pd1khnb5yfTYtvSz313cN9Lp"
         value = value.replace(",", ".")
         float_value = float(value)
         lamports = int(float_value * 1_000_000_000)  # Convert to lamports
@@ -43,6 +46,10 @@ if ecosystem == "sol":
     request_json = sol_tx_native(vault_id, destination, custom_note, value)
 elif ecosystem == "evm":
     try:
+        if vault_id == "default":
+            vault_id = os.getenv("EVM_VAULT_ID") # default vault
+        if destination == "default":
+            destination = "0x83c1C2a52d56dFb958C52831a3D683cFAfC34c75"
         value = value.replace(",", ".")
         float_value = float(value)
         wei = int(float_value * 1_000_000_000_000_000_000)  # Convert to Wei
@@ -53,6 +60,22 @@ elif ecosystem == "evm":
         print("❌ Invalid ETH amount provided")
         exit(1)
     request_json = evm_tx_native(vault_id, destination, custom_note, value)
+elif ecosystem == "sui":
+    try:
+        if vault_id == "default":
+            vault_id = os.getenv("SUI_VAUL_ID")
+        if destination == "default":
+            destination = "0xa1af935c826ec92f50da6c4eb9e880b12c18c154f546a993830ee7f000c842bc"
+        value = value.replace(",", ".")
+        float_value = float(value)
+        mist = int(float_value * 1_000_000_000)  # Convert to Mist
+        assert mist > 0, "SUI amount must be positive!"
+        print(f"Sending {float_value} SUI!")
+        value = str(mist) 
+    except ValueError:
+        print("❌ Invalid SUI amount provided")
+        exit(1)
+    request_json = sui_tx_native(vault_id, destination, custom_note, value)
 
 ## Broadcasting transaction
 
