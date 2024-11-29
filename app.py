@@ -11,6 +11,7 @@ from utils.ecosysten_configs import get_ecosystem_config
 load_dotenv()
 
 ## User interface
+
 vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower() or "default"
 destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip() or "default"
 
@@ -61,7 +62,7 @@ def process_transaction(ecosystem, vault_id, destination, value, custom_note):
 
 request_json = process_transaction(ecosystem, vault_id, destination, value, custom_note)
 
-## Broadcasting transaction
+## Broadcast transaction
 
 access_token = os.getenv("FORDEFI_API_TOKEN")
 request_body = json.dumps(request_json)
@@ -89,5 +90,3 @@ except json.JSONDecodeError as e:
     print(f"❌ Failed to parse response: {str(e)}")
     print(f"Raw response: {resp_tx.text}")
     exit(1)
-
-# Local start command: uvicorn app:app --reload --port 8800
