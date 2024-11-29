@@ -18,8 +18,6 @@ def broadcast_tx(path, access_token, signature, timestamp, request_body):
         resp_tx.raise_for_status()
         return resp_tx
 
-    except requests.exceptions.RequestException as e:
-        raise RuntimeError(f"Network error occurred: {str(e)}")
     except requests.exceptions.HTTPError as e:
         error_message = f"HTTP error occurred: {str(e)}"
         if resp_tx.text:
@@ -29,3 +27,5 @@ def broadcast_tx(path, access_token, signature, timestamp, request_body):
             except json.JSONDecodeError:
                 error_message += f"\nRaw response: {resp_tx.text}"
         raise RuntimeError(error_message)
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Network error occurred: {str(e)}")
