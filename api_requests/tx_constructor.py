@@ -1,4 +1,4 @@
-__all__ = ['evm_tx_native', 'sol_tx_native', 'sui_tx_native']
+__all__ = ['evm_tx_native', 'sol_tx_native', 'sui_tx_native', 'ton_tx_native']
 
 from dotenv import load_dotenv
 
@@ -106,3 +106,41 @@ def sui_tx_native(vault_id, destination, custom_note, value):
     }
 
     return request_json
+
+def ton_tx_native(vault_id, destination, custom_note, value):
+
+    print(f"⚙️ Preparing transaction to {destination} for {value} nanotons!")
+
+    request_json = {
+
+        "vault_id": vault_id,
+        "note": custom_note,
+        "signer_type": "api_signer",
+        "sign_mode": "auto",
+        "type": "ton_transaction",
+        "details": {
+            "type": "ton_transfer",
+            "fail_on_prediction_failure": True,
+            "push_mode": "auto",
+            "to": {
+                "type": "hex",
+                "address": destination
+            },
+            "value": {
+                "type": "value",
+                "value": value
+            },
+            "asset_identifier": {
+                "type": "ton",
+                "details": {
+                    "type": "native",
+                    "chain": "ton_mainnet"
+                }
+            },
+            "skip_prediction": False
+        }
+    }
+
+    return request_json
+
+

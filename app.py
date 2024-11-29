@@ -4,7 +4,7 @@ import datetime
 import ecdsa
 import hashlib
 from dotenv import load_dotenv
-from api_requests.tx_constructor import evm_tx_native, sol_tx_native, sui_tx_native
+from api_requests.tx_constructor import evm_tx_native, sol_tx_native, sui_tx_native, ton_tx_native
 from api_requests.broadcast import broadcast_tx
 
 load_dotenv()
@@ -14,13 +14,13 @@ vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower
 destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip() or "default"
 
 while True:
-    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI): ").strip().lower()
-    if ecosystem in ["sol", "evm", "sui"]:
+    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON): ").strip().lower()
+    if ecosystem in ["sol", "evm", "sui", "ton"]:
         break
     else:
         print("❌ Invalid input. Please choose SOL or EVM")
 
-value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI or ETH as unit: ").strip().lower()
+value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI, TON or ETH as unit: ").strip().lower()
 
 custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
@@ -76,6 +76,22 @@ elif ecosystem == "sui":
         print("❌ Invalid SUI amount provided")
         exit(1)
     request_json = sui_tx_native(vault_id, destination, custom_note, value)
+elif ecosystem == "ton":
+    try:
+        if vault_id == "default":
+            vault_id = os.getenv("TON_VAULT_ID")
+        if destination == "default":
+            destination = "UQCXmikxWsyKnP-3yQVAUiu94NGtjAKug4tsiFO1jZ6jOjmt"
+        value = value.replace(",", ".")
+        float_value = float(value)
+        mist = int(float_value * 1_000_000_000)  # Convert to Nanoton
+        assert mist > 0, "TON amount must be positive!"
+        print(f"Sending {float_value} TON!")
+        value = str(mist) 
+    except ValueError:
+        print("❌ Invalid TON amount provided")
+        exit(1)
+    request_json = ton_tx_native(vault_id, destination, custom_note, value)
 
 ## Broadcasting transaction
 
