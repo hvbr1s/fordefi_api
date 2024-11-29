@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def evm_tx_native():
+def evm_tx_native(vault_id, destination, custom_note, value):
 
     """
     Native ETH transfer
@@ -15,8 +15,8 @@ def evm_tx_native():
 
     request_json = {
         "signer_type": "api_signer",
-        "vault_id": os.getenv("EVM_VAUL_ID"),
-        "note": "hello mom",
+        "vault_id": vault_id,
+        "note": custom_note,
         "type": "evm_transaction",
         "details": {
             "type": "evm_transfer",
@@ -24,7 +24,7 @@ def evm_tx_native():
                 "type": "priority",
                 "priority_level": "medium"
             },
-            "to": "0x83c1C2a52d56dFb958C52831a3D683cFAfC34c75",
+            "to": destination,
             "asset_identifier": {
                 "type": "evm",
                 "details": {
@@ -34,7 +34,7 @@ def evm_tx_native():
             },
             "value": {
                 "type": "value",
-                "value": "580000000000000"
+                "value": value
             }
         }
     }
@@ -42,7 +42,7 @@ def evm_tx_native():
     return request_json
 
 
-def sol_tx_native():
+def sol_tx_native(vault_id, destination, custom_note, value):
 
     request_json = {
 
@@ -50,10 +50,10 @@ def sol_tx_native():
     "type": "solana_transaction",
     "details": {
         "type": "solana_transfer",
-        "to": "8o6kJ9gPNMnRAgdyWLt6Pd1khnb5yfTYtvSz313cN9Lp",
+        "to": destination,
         "value": {
             "type": "value",
-            "value": "2780000"
+            "value": value
         },
         "asset_identifier": {
             "type": "solana",
@@ -63,8 +63,8 @@ def sol_tx_native():
             }
         }
     },
-    "note": "Testing transfers!",
-    "vault_id": os.getenv("SOL_VAULT_ID")
+    "note": custom_note,
+    "vault_id": vault_id
     }
     
     return request_json
