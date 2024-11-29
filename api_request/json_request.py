@@ -7,6 +7,12 @@ load_dotenv()
 
 def evm_tx_native():
 
+    """
+    Native ETH transfer
+    "580000000000000" wei = $2 USD of ETH
+
+    """
+
     request_json = {
         "signer_type": "api_signer",
         "vault_id": os.getenv("EVM_VAUL_ID"),
@@ -31,6 +37,34 @@ def evm_tx_native():
                 "value": "580000000000000"
             }
         }
+    }
+    
+    return request_json
+
+
+def sol_tx_native():
+
+    request_json = {
+
+    "signer_type": "api_signer",
+    "type": "solana_transaction",
+    "details": {
+        "type": "solana_transfer",
+        "to": "8o6kJ9gPNMnRAgdyWLt6Pd1khnb5yfTYtvSz313cN9Lp",
+        "value": {
+            "type": "value",
+            "value": "2780000"
+        },
+        "asset_identifier": {
+            "type": "solana",
+            "details": {
+                "type": "native",
+                "chain": "solana_mainnet"
+            }
+        }
+    },
+    "note": "Testing transfers!",
+    "vault_id": os.getenv("SOL_VAULT_ID")
     }
     
     return request_json

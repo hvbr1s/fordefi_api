@@ -6,10 +6,10 @@ import datetime
 import ecdsa
 import hashlib
 from dotenv import load_dotenv
-from api_request.json_request import evm_tx_native
+from api_request.json_request import evm_tx_native, sol_tx_native
 
-load_dotenv() 
-request_json = evm_tx_native()
+load_dotenv()
+request_json = sol_tx_native() # choose your transaction type
 
 access_token = os.getenv("FORDEFI_API_TOKEN")
 request_body = json.dumps(request_json)
