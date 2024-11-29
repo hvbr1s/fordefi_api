@@ -1,11 +1,12 @@
 __all__ = ['tx']
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 def evm_tx_native(vault_id, destination, custom_note, value):
+
+    print(f"Preparing tx for {value} gwei!")
 
     """
     Native ETH transfer
@@ -43,6 +44,8 @@ def evm_tx_native(vault_id, destination, custom_note, value):
 
 
 def sol_tx_native(vault_id, destination, custom_note, value):
+
+    print(f"Preparing transaction for {value} lamports!")
 
     request_json = {
 
