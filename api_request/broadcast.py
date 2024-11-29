@@ -1,4 +1,4 @@
-__all__ = ['tx']
+__all__ = ['broadcast_tx']
 
 import requests
 import base64

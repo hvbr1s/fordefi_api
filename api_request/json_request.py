@@ -1,4 +1,4 @@
-__all__ = ['tx']
+__all__ = ['evm_tx_native', 'sol_tx_native']
 
 from dotenv import load_dotenv
 
