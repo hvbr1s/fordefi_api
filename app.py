@@ -24,7 +24,7 @@ value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI o
 
 custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
-print(f"🚀 Excellent! Sending from Vault {vault_id.capitalize()} to {destination} on {ecosystem.upper()}.")
+print(f"🚀 Excellent! Sending from vault {vault_id} to {destination} on {ecosystem.upper()}.")
 
 ## Building transaction
 
@@ -63,7 +63,7 @@ elif ecosystem == "evm":
 elif ecosystem == "sui":
     try:
         if vault_id == "default":
-            vault_id = os.getenv("SUI_VAUL_ID")
+            vault_id = os.getenv("SUI_VAULT_ID")
         if destination == "default":
             destination = "0xa1af935c826ec92f50da6c4eb9e880b12c18c154f546a993830ee7f000c842bc"
         value = value.replace(",", ".")

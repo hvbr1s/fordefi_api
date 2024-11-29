@@ -74,29 +74,35 @@ def sol_tx_native(vault_id, destination, custom_note, value):
 
 def sui_tx_native(vault_id, destination, custom_note, value):
 
-    print(f"⚙️ Preparing transaction for {value} mist!")
+    print(f"⚙️ Preparing transaction to {destination} for {value} mist!")
 
-    {
-    "signer_type": "api_signer",
-    "type": "sui_transaction",
-    "details": {
-        "type": "sui_transfer",
-        "to": destination,
-        "value": {
-            "type": "value",
-            "value": value
-        },
-        "gas_config": {
-            "payment": []
-        },
-        "asset_identifier": {
-            "type": "sui",
-            "details": {
-                "type": "native",
-                "chain": "sui_mainnet"
-            }
-        }
-    },
-    "note": custom_note,
-    "vault_id": vault_id
-}
+    request_json = {
+
+        "signer_type": "api_signer",
+        "type": "sui_transaction",
+        "details": {
+                "type": "sui_transfer",
+                "to": {
+                    "type": "hex",
+                    "address": destination
+                },
+                "value": {
+                    "type": "value",
+                    "value": value
+                },
+                "gas_config": {
+                    "payment": []
+                },
+                "asset_identifier": {
+                    "type": "sui",
+                    "details": {
+                        "type": "native",
+                        "chain": "sui_mainnet"
+                    }
+                }
+            },
+        "note": custom_note,
+        "vault_id": vault_id
+    }
+
+    return request_json
