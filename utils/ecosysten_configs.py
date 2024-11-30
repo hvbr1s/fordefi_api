@@ -23,7 +23,7 @@ def get_ecosystem_config(ecosystem):
         "ton": {
             "vault_env": "TON_VAULT_ID",
             "default_dest": "UQCXmikxWsyKnP-3yQVAUiu94NGtjAKug4tsiFO1jZ6jOjmt",
-            "decimals": 1_000_000_000,  # nanoton
+            "decimals": 1_000_000_000,  # nanotons
             "unit_name": "TON"
         }
     }
