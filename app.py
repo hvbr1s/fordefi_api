@@ -4,63 +4,39 @@ import datetime
 import ecdsa
 import hashlib
 from dotenv import load_dotenv
-from api_requests.tx_constructor import evm_tx_native, sol_tx_native, sui_tx_native, ton_tx_native
 from api_requests.broadcast import broadcast_tx
-from utils.ecosysten_configs import get_ecosystem_config
+from utils.tx_processor import process_transaction
 
 load_dotenv()
 
 ## User interface
 
 vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower() or "default"
-destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip() or "default"
+destination =  input("🚚 Sounds good! What is the destination address? ").strip() or "default"
 
+evm_chain = None
 while True:
     ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON): ").strip().lower()
-    if ecosystem in ["sol", "evm", "sui", "ton"]:
+    if ecosystem == "evm":
+        evm_chain =  input("🌐 Which EVM chain?").strip().lower() or "ethereum"
+        if evm_chain in ["arbitrum", "optimism", "ethereum"]:
+            break
+        else:
+            print("❌ Invalid input. Please choose Arbitrum, Optimism, Ethereum")              
+    elif ecosystem in ["sol", "sui", "ton"]:
         break
     else:
-        print("❌ Invalid input. Please choose SOL or EVM")
+        print("❌ Invalid input. Please choose SOL, EVM, SUI, TON")
 
 value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI, TON or ETH as unit: ").strip().lower()
 
 custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
-print(f"🚀 Excellent! Sending from vault {vault_id} to {destination} on {ecosystem.upper()}.")
+print(f"🚀 Excellent! Sending from vault {vault_id} to {destination} on {ecosystem.upper()} -> {evm_chain}.")
 
 ## Building transaction
 
-def process_transaction(ecosystem, vault_id, destination, value, custom_note):
-    config = get_ecosystem_config(ecosystem)
-    if not config:
-        raise ValueError("Invalid ecosystem")
-
-    if vault_id == "default":
-        vault_id = os.getenv(config["vault_env"])
-    if destination == "default":
-        destination = config["default_dest"]
-
-    try:
-        value = value.replace(",", ".")
-        float_value = float(value)
-        smallest_unit = int(float_value * config["decimals"])
-        assert smallest_unit > 0, f"{config['unit_name']} amount must be positive!"
-        print(f"Sending {float_value} {config['unit_name']}!")
-        
-        tx_functions = {
-            "sol": sol_tx_native,
-            "evm": evm_tx_native,
-            "sui": sui_tx_native,
-            "ton": ton_tx_native
-        }
-        
-        return tx_functions[ecosystem](vault_id, destination, custom_note, str(smallest_unit))
-    except ValueError:
-        print(f"❌ Invalid {config['unit_name']} amount provided")
-        exit(1)
-
-
-request_json = process_transaction(ecosystem, vault_id, destination, value, custom_note)
+request_json = process_transaction(ecosystem, evm_chain, vault_id, destination, value, custom_note)
 
 ## Broadcast transaction
 
