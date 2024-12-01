@@ -1,3 +1,5 @@
+__all__ = ['process_transaction']
+
 from api_requests.tx_constructor import evm_tx_native, sol_tx_native, sui_tx_native, ton_tx_native
 from utils.ecosysten_configs import get_ecosystem_config
 import os
