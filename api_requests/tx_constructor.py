@@ -142,5 +142,3 @@ def ton_tx_native(vault_id, destination, custom_note, value):
     }
 
     return request_json
-
-
