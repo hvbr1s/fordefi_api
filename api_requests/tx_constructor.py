@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def evm_tx_native(vault_id, destination, custom_note, value):
+def evm_tx_native(evm_chain, vault_id, destination, custom_note, value):
 
     print(f"⚙️ Preparing tx for {value} gwei!")
 
@@ -30,7 +30,7 @@ def evm_tx_native(vault_id, destination, custom_note, value):
                 "type": "evm",
                 "details": {
                     "type": "native",
-                    "chain": "evm_ethereum_mainnet"
+                    "chain": f"evm_{evm_chain}_mainnet"
                 }
             },
             "value": {

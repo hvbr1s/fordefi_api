@@ -15,28 +15,36 @@ load_dotenv()
 vault_id = input("👋 Welcome! Please enter the vault ID name: ").strip().lower() or "default"
 destination =  input("🚚 Sounds good! Where should we send the funds to? ").strip() or "default"
 
+evm_chain = None
 while True:
     ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON): ").strip().lower()
-    if ecosystem in ["sol", "evm", "sui", "ton"]:
+    if ecosystem == "evm":
+        evm_chain =  input("🌐 Which EVM chain?").strip().lower() or "ethereum"
+        if evm_chain in ["arbitrum", "optimism", "ethereum"]:
+            break
+        else:
+            print("❌ Invalid input. Please choose Arbitrum, Optimism, Ethereum")              
+    elif ecosystem in ["sol", "sui", "ton"]:
         break
     else:
-        print("❌ Invalid input. Please choose SOL or EVM")
+        print("❌ Invalid input. Please choose SOL, EVM, SUI, TON")
 
 value =  input("🌐 Ok! How much would you like to spend? Please use SOL, SUI, TON or ETH as unit: ").strip().lower()
 
 custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
-print(f"🚀 Excellent! Sending from vault {vault_id} to {destination} on {ecosystem.upper()}.")
+print(f"🚀 Excellent! Sending from vault {vault_id} to {destination} on {ecosystem.upper()} -> {evm_chain}.")
 
 ## Building transaction
 
-def process_transaction(ecosystem, vault_id, destination, value, custom_note):
+def process_transaction(ecosystem, evm_chain, vault_id, destination, value, custom_note):
     config = get_ecosystem_config(ecosystem)
     if not config:
         raise ValueError("Invalid ecosystem")
 
     if vault_id == "default":
         vault_id = os.getenv(config["vault_env"])
+        print(f"Sending from vault {vault_id}")
     if destination == "default":
         destination = config["default_dest"]
 
@@ -53,14 +61,16 @@ def process_transaction(ecosystem, vault_id, destination, value, custom_note):
             "sui": sui_tx_native,
             "ton": ton_tx_native
         }
-        
-        return tx_functions[ecosystem](vault_id, destination, custom_note, str(smallest_unit))
+        if tx_functions[ecosystem] == evm_tx_native:
+            return tx_functions[ecosystem](evm_chain, vault_id, destination, custom_note, str(smallest_unit))
+        else:
+            return tx_functions[ecosystem](vault_id, destination, custom_note, str(smallest_unit))
     except ValueError:
         print(f"❌ Invalid {config['unit_name']} amount provided")
         exit(1)
 
 
-request_json = process_transaction(ecosystem, vault_id, destination, value, custom_note)
+request_json = process_transaction(ecosystem, evm_chain, vault_id, destination, value, custom_note)
 
 ## Broadcast transaction
 
