@@ -31,7 +31,7 @@ while True:
 
 token = input("🪙 What is the token ticker? If not a token press return: ").strip().lower() or None
 
-value =  input("🌐 Ok! How much would you like to spend? ").strip().lower()
+value =  input("💸 Ok! How much would you like to spend? ").strip().lower()
 
 custom_note = input("🗒️  Would you like to add a note? ").strip().lower() or "note!"
         
