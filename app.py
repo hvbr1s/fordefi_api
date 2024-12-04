@@ -17,17 +17,17 @@ destination =  input("🚚 Sounds good! What is the destination address? ").stri
 evm_chain = None
 token = None
 while True:
-    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON): ").strip().lower()
+    ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON/APT): ").strip().lower()
     if ecosystem == "evm":
         evm_chain =  input("🌐 Which EVM chain? ").strip().lower() or "ethereum"
         if evm_chain in ["arbitrum", "optimism", "ethereum"]:
             break
         else:
             print("❌ Invalid input. Please choose Arbitrum, Optimism, Ethereum")              
-    elif ecosystem in ["sol", "sui", "ton"]:
+    elif ecosystem in ["sol", "sui", "ton", "apt"]:
         break
     else:
-        print("❌ Invalid input. Please choose SOL, EVM, SUI, TON")
+        print("❌ Invalid input. Please choose SOL, EVM, SUI, TON, APT")
 
 token = input("🪙 What is the token ticker? If not a token press return: ").strip().lower() or None
 
