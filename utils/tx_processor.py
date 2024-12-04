@@ -40,7 +40,7 @@ def process_transaction(ecosystem, evm_chain, vault_id, destination, value, cust
                 "evm": evm_tx_native,
                 "sui": sui_tx_native,
                 "ton": ton_tx_native,
-                "aptos": aptos_tx_native,
+                "apt": aptos_tx_native,
             }
 
         if tx_functions[ecosystem] == evm_tx_native:
