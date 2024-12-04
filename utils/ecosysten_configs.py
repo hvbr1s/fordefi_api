@@ -25,6 +25,12 @@ def get_ecosystem_config(ecosystem):
             "default_dest": "UQCXmikxWsyKnP-3yQVAUiu94NGtjAKug4tsiFO1jZ6jOjmt",
             "decimals": 1_000_000_000,  # nanotons
             "unit_name": "TON"
+        },
+        "aptos":{
+            "vault_env": "APTOS_VAULT_ID",
+            "default_dest": "0x08bfeca2e5589e112324dfdcb2f4f3c733d91955b6c8c6ca8ea329587f61d46c",
+            "decimals": 100_000_000, # octa
+            "unit_name": "APT"
         }
     }
     return configs.get(ecosystem)

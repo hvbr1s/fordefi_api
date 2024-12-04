@@ -142,3 +142,45 @@ def ton_tx_native(vault_id, destination, custom_note, value):
     }
 
     return request_json
+
+def aptos_tx_native(vault_id, destination, custom_note, value):
+
+    print(f"⚙️ Preparing transaction to {destination} for {value} mist!")
+
+    request_json = {
+        "vault_id": vault_id,
+        "note": custom_note,
+        "signer_type": "initiator",
+        "sign_mode": "auto",
+        "type": "aptos_transaction",
+        "details": {
+            "type": "aptos_transfer",
+            "fail_on_prediction_failure": True,
+            "gas_config": {
+            "max_gas": "1000000000000000000",
+            "price": {
+                "type": "custom",
+                "price": "1000000000000000000"
+            }
+            },
+            "to": {
+            "type": "hex",
+            "address": destination,
+            },
+            "value": {
+            "type": "value",
+            "value": value,
+            },
+            "asset_identifier": {
+            "type": "aptos",
+            "details": {
+                "type": "native",
+                "chain": "aptos_mainnet"
+            }
+            },
+            "skip_prediction": False,
+            "push_mode": "auto"
+        }
+        }
+
+    return request_json
