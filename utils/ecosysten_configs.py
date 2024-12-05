@@ -31,6 +31,12 @@ def get_ecosystem_config(ecosystem):
             "default_dest": "0x08bfeca2e5589e112324dfdcb2f4f3c733d91955b6c8c6ca8ea329587f61d46c",
             "decimals": 100_000_000, # octa
             "unit_name": "APT"
+        },
+        "btc":{
+            "vault_env": "BTC_VAULT_ID",
+            "default_dest": "bc1p4m94zze0tv9kp7usnpha7u98lpanemufhshgv9nae4c3myanc5csly8ayl",
+            "decimals": 100_000_000, # satoshis
+            "unit_name": "BTC"
         }
     }
     return configs.get(ecosystem)

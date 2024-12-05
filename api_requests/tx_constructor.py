@@ -145,22 +145,22 @@ def ton_tx_native(vault_id, destination, custom_note, value):
 
 def aptos_tx_native(vault_id, destination, custom_note, value):
 
-    print(f"⚙️ Preparing transaction to {destination} for {value} mist!")
+    print(f"⚙️ Preparing transaction to {destination} for {value} octas!")
 
     request_json = {
         "vault_id": vault_id,
         "note": custom_note,
-        "signer_type": "initiator",
+        "signer_type": "api_signer",
         "sign_mode": "auto",
         "type": "aptos_transaction",
         "details": {
             "type": "aptos_transfer",
             "fail_on_prediction_failure": True,
             "gas_config": {
-            "max_gas": "1000000000000000000",
+            "max_gas": "20000",
             "price": {
                 "type": "custom",
-                "price": "1000000000000000000"
+                "price": "100"
             }
             },
             "to": {
@@ -183,4 +183,32 @@ def aptos_tx_native(vault_id, destination, custom_note, value):
         }
         }
 
+    return request_json
+
+def btc_tx_native(vault_id, destination, custom_note, value):
+
+    request_json = {
+        "vault_id": vault_id,
+        "note": custom_note,
+        "signer_type": "api_signer",
+        "sign_mode": "auto",
+        "type": "utxo_transaction",
+        "details": {
+            "type": "utxo_transfer",
+            "outputs": [
+            {
+                "to": {
+                "type": "address",
+                "address": destination
+                },
+                "value": value
+            }
+            ],
+            "fee_per_byte": {
+            "type": "priority",
+            "priority_level": "low"
+            },
+            "push_mode": "auto"
+        }
+    }
     return request_json
