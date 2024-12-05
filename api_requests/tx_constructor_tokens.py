@@ -1,4 +1,4 @@
-__all__ = ['evm_tx_tokens']
+__all__ = ['evm_tx_tokens', 'sol_tx_tokens']
 
 from dotenv import load_dotenv
 
@@ -41,5 +41,42 @@ def evm_tx_tokens(evm_chain, vault_id, destination, custom_note, value, token):
     "note": custom_note,
     "vault_id": vault_id
 }
+
+    return request_json
+
+def sol_tx_tokens(vault_id, destination, custom_note, value, token):
+
+    print(f"Sending {value} {token} from {vault_id} to {destination}")
+
+    if token =="usdc":
+        program_address = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    else:
+        program_address = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+
+    request_json = {
+        "signer_type": "api_signer",
+        "type": "solana_transaction",
+        "details": {
+            "type": "solana_transfer",
+            "to": destination,
+            "value": {
+                "type": "value",
+                "value": value
+            },
+            "asset_identifier": {
+                "type": "solana",
+                "details": {
+                    "type": "spl_token",
+                    "token": {
+                        "chain": "solana_mainnet",
+                        "base58_repr": program_address
+                    }
+                }
+            }
+        },
+        "note": custom_note,
+        "vault_id": vault_id
+    }
+
 
     return request_json
