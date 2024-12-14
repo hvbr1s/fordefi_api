@@ -1,25 +1,17 @@
 import os
-import ecdsa
-import datetime
-import hashlib
-import json
 import requests
-from api_requests.broadcast import broadcast_tx
+import datetime
+import json
+import base64
+import base58
+import ecdsa
+import hashlib
+from api_requests.broadcast import get_tx
 
-# Fetch triggered transaction ID
-with open("./response_data.json", "r") as f:
-    response_data = json.load(f)
-triggered_tx_id = response_data["id"]
-print(triggered_tx_id)
-
-request_json = {
-    "id":triggered_tx_id
-}
-
-# Sign transaction
+transaction_id = "76b3048c-4707-4e9b-8089-69ebb998d2e1"
 access_token = os.getenv("FORDEFI_API_TOKEN")
-path = f"/api/v1/transactions/{triggered_tx_id}/trigger-signing"
-request_body = json.dumps(request_json)
+path = f"/api/v1/transactions/{transaction_id}"
+request_body = ""
 private_key_file = "./secret/private.pem"
 timestamp = datetime.datetime.now().strftime("%s")
 payload = f"{path}|{timestamp}|{request_body}"
@@ -31,47 +23,43 @@ signature = signing_key.sign(
     data=payload.encode(), hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_der
 )
 
+# Fetch raw signature
+fetch_raw_signature = get_tx(path, access_token, signature, timestamp, request_body)
+raw_transaction_base64 = fetch_raw_signature['raw_transaction']
+print(f"Raw signature -> {raw_transaction_base64}")
 
-def ping(path, access_token):
-            
-    try:    
-        resp_tx = broadcast_tx(path, access_token, signature, timestamp, request_body)
-        resp_tx.raise_for_status()
-        return resp_tx
-    except requests.exceptions.HTTPError as e:
-        error_message = f"HTTP error occurred: {str(e)}"
-        if resp_tx.text:
-            try:
-                error_detail = resp_tx.json()
-                error_message += f"\nError details: {error_detail}"
-            except json.JSONDecodeError:
-                error_message += f"\nRaw response: {resp_tx.text}"
-        raise RuntimeError(error_message)
-    except requests.exceptions.RequestException as e:
-        raise RuntimeError(f"Network error occurred: {str(e)}")
+# Convert base64 to bytes, then to base58
+raw_bytes = base64.b64decode(raw_transaction_base64)
+raw_transaction_base58 = base58.b58encode(raw_bytes).decode('ascii')
 
-def main():
-    if not access_token:
-        print("Error: FORDEFI_API_TOKEN environment variable is not set")
-        return
-        
-    try:
-        response = ping(path, access_token)
-        if response.status_code == 204:
-            print("Transaction signing triggered successfully (Status 204)")
-        else:
-            print(f"Unexpected response status: {response.status_code}")
-            if response.text:
-                print(json.dumps(response.json(), indent=2))
-                data = response.json()
-                # Save data to a JSON file
-                with open('trigger_data.json', 'w') as json_file:
-                    json.dump(data, json_file, indent=2)
-                print("Data has been saved to 'trigger_data.json'")
+# Jito API endpoint
+url = "https://mainnet.block-engine.jito.wtf/api/v1/transactions"
 
-    except Exception as e:
-            print(f"Error: {str(e)}")
+# Prepare the request payload
+payload = {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "sendTransaction",
+    "params": [raw_transaction_base58]
+}
 
-if __name__ == "__main__":
-    main()
+# Set headers
+headers = {
+    "Content-Type": "application/json"
+}
 
+try:
+    # Send POST request
+    response = requests.post(url, headers=headers, json=payload)
+    
+    # Check if request was successful
+    response.raise_for_status()
+    
+    # Parse response
+    result = response.json()
+    print(f"Successfully sent transaction to Jito. Response: {json.dumps(result, indent=2)}")
+    
+except requests.exceptions.RequestException as e:
+    print(f"Error sending transaction: {e}")
+    if hasattr(e, 'response') and e.response is not None:
+        print(f"Response content: {e.response.text}")
