@@ -1,0 +1,518 @@
+{
+  "id": "c0486518-4a9d-43d6-9f62-01d216343af2",
+  "created_at": "2024-12-14T20:31:13.318000Z",
+  "modified_at": "2024-12-14T20:31:13.318000Z",
+  "managed_transaction_data": {
+    "created_by": {
+      "id": "b81120d9-a62b-4191-b0fd-20dc557c81cf",
+      "user_type": "api_user",
+      "name": "SamBot2",
+      "state": "active",
+      "role": "trader"
+    },
+    "policy_match": {
+      "is_default": true,
+      "rule_id": "00000000-0000-0000-0000-000000000000",
+      "rule_name": "",
+      "action_type": "allow"
+    },
+    "signer_type": "api_signer",
+    "risks": [],
+    "vault": {
+      "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+      "name": "Solana Vault",
+      "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+      "state": "active"
+    },
+    "has_current_user_vault_permissions": true,
+    "push_mode": "manual",
+    "sign_mode": "triggered"
+  },
+  "signatures": [],
+  "note": "string",
+  "spam_state": "unset",
+  "direction": "outgoing",
+  "type": "solana_transaction",
+  "solana_transaction_type_details": {
+    "type": "native_transfer",
+    "direction": "internal",
+    "sender": {
+      "vault": {
+        "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+        "name": "Solana Vault",
+        "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+        "state": "active"
+      },
+      "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+      "type": "solana",
+      "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+    },
+    "recipient": {
+      "vault": {
+        "id": "d7c4eb85-89d5-45d7-a6b8-a11a4fb6173b",
+        "name": "Test Solana Vault",
+        "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+        "state": "active"
+      },
+      "explorer_url": "https://solscan.io/account/9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+      "type": "solana",
+      "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS"
+    },
+    "is_internal": true
+  },
+  "chain": {
+    "chain_type": "solana",
+    "unique_id": "solana_mainnet",
+    "name": "Solana Mainnet",
+    "native_currency_symbol": "SOL",
+    "native_currency_name": "Solana",
+    "blockchain_explorer": {
+      "transaction_url": "https://solscan.io/tx/",
+      "address_url": "https://solscan.io/account/",
+      "root_url": "https://solscan.io/",
+      "transaction_format_url": "https://solscan.io/tx/%s",
+      "address_format_url": "https://solscan.io/account/%s"
+    },
+    "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+    "is_testnet": false
+  },
+  "state": "waiting_for_signing_trigger",
+  "state_changes": [
+    {
+      "changed_at": "2024-12-14T20:31:13.318000Z",
+      "asset_prices": [],
+      "new_state": "waiting_for_approval"
+    },
+    {
+      "changed_at": "2024-12-14T20:31:13.345000Z",
+      "asset_prices": [],
+      "previous_state": "waiting_for_approval",
+      "new_state": "waiting_for_signing_trigger"
+    }
+  ],
+  "version": "legacy",
+  "instructions": [
+    {
+      "program_index": 3,
+      "data": "A4gTAAAAAAAA",
+      "account_indexes": [],
+      "program": {
+        "explorer_url": "https://solscan.io/account/ComputeBudget111111111111111111111111111111",
+        "type": "solana",
+        "address": "ComputeBudget111111111111111111111111111111"
+      },
+      "base58_data": "3cDeqiGMb6md"
+    },
+    {
+      "program_index": 3,
+      "data": "AkANAwA=",
+      "account_indexes": [],
+      "program": {
+        "explorer_url": "https://solscan.io/account/ComputeBudget111111111111111111111111111111",
+        "type": "solana",
+        "address": "ComputeBudget111111111111111111111111111111"
+      },
+      "base58_data": "Fj2Eoy"
+    },
+    {
+      "program_index": 2,
+      "data": "AgAAAEBCDwAAAAAA",
+      "account_indexes": [
+        0,
+        1
+      ],
+      "program": {
+        "explorer_url": "https://solscan.io/account/11111111111111111111111111111111",
+        "type": "solana",
+        "address": "11111111111111111111111111111111"
+      },
+      "base58_data": "3Bxs4Bc3VYuGVB19"
+    }
+  ],
+  "accounts": [
+    {
+      "address": {
+        "vault": {
+          "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+          "name": "Solana Vault",
+          "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+          "state": "active"
+        },
+        "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+        "type": "solana",
+        "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+      },
+      "writable": true,
+      "signer": true
+    },
+    {
+      "address": {
+        "vault": {
+          "id": "d7c4eb85-89d5-45d7-a6b8-a11a4fb6173b",
+          "name": "Test Solana Vault",
+          "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+          "state": "active"
+        },
+        "explorer_url": "https://solscan.io/account/9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+        "type": "solana",
+        "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS"
+      },
+      "writable": true,
+      "signer": false
+    },
+    {
+      "address": {
+        "explorer_url": "https://solscan.io/account/11111111111111111111111111111111",
+        "type": "solana",
+        "address": "11111111111111111111111111111111"
+      },
+      "writable": false,
+      "signer": false
+    },
+    {
+      "address": {
+        "explorer_url": "https://solscan.io/account/ComputeBudget111111111111111111111111111111",
+        "type": "solana",
+        "address": "ComputeBudget111111111111111111111111111111"
+      },
+      "writable": false,
+      "signer": false
+    }
+  ],
+  "address_table_lookups": [],
+  "sender": {
+    "vault": {
+      "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+      "name": "Solana Vault",
+      "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+      "state": "active"
+    },
+    "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+    "type": "solana",
+    "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+  },
+  "expected_result": {
+    "reversion": {
+      "state": "not_reverted"
+    },
+    "fee": "6000",
+    "enriched_fee": {
+      "fee": "6000",
+      "fiat_price": {
+        "price": "21715",
+        "price_float": "21715",
+        "fiat_currency": {
+          "currency_symbol": "usd",
+          "decimals": 2
+        }
+      }
+    },
+    "effects": {
+      "balance_changes": [
+        {
+          "priced_asset": {
+            "type": "asset_price",
+            "asset_identifier": {
+              "type": "solana",
+              "details": {
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                },
+                "type": "native"
+              }
+            },
+            "asset_info": {
+              "id": "c190e464-185e-48a6-8d80-763a61828173",
+              "asset_identifier": {
+                "type": "solana",
+                "details": {
+                  "type": "native",
+                  "chain": "solana_mainnet"
+                },
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                }
+              },
+              "name": "Solana",
+              "symbol": "SOL",
+              "decimals": 9,
+              "verified": true,
+              "metadata_uri": "",
+              "is_spam": false
+            },
+            "price": {
+              "price": "21715",
+              "price_float": "21715",
+              "fiat_currency": {
+                "currency_symbol": "usd",
+                "decimals": 2
+              }
+            }
+          },
+          "diff": "-1000000",
+          "type": "native",
+          "address": {
+            "vault": {
+              "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+              "name": "Solana Vault",
+              "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+            "type": "solana",
+            "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+          },
+          "owner": {
+            "vault": {
+              "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+              "name": "Solana Vault",
+              "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+            "type": "solana",
+            "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+          },
+          "price": {
+            "price": "21715",
+            "price_float": "21715",
+            "fiat_currency": {
+              "currency_symbol": "usd",
+              "decimals": 2
+            }
+          }
+        },
+        {
+          "priced_asset": {
+            "type": "asset_price",
+            "asset_identifier": {
+              "type": "solana",
+              "details": {
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                },
+                "type": "native"
+              }
+            },
+            "asset_info": {
+              "id": "c190e464-185e-48a6-8d80-763a61828173",
+              "asset_identifier": {
+                "type": "solana",
+                "details": {
+                  "type": "native",
+                  "chain": "solana_mainnet"
+                },
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                }
+              },
+              "name": "Solana",
+              "symbol": "SOL",
+              "decimals": 9,
+              "verified": true,
+              "metadata_uri": "",
+              "is_spam": false
+            },
+            "price": {
+              "price": "21715",
+              "price_float": "21715",
+              "fiat_currency": {
+                "currency_symbol": "usd",
+                "decimals": 2
+              }
+            }
+          },
+          "diff": "1000000",
+          "type": "native",
+          "address": {
+            "vault": {
+              "id": "d7c4eb85-89d5-45d7-a6b8-a11a4fb6173b",
+              "name": "Test Solana Vault",
+              "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+            "type": "solana",
+            "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS"
+          },
+          "owner": {
+            "vault": {
+              "id": "d7c4eb85-89d5-45d7-a6b8-a11a4fb6173b",
+              "name": "Test Solana Vault",
+              "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+            "type": "solana",
+            "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS"
+          },
+          "price": {
+            "price": "21715",
+            "price_float": "21715",
+            "fiat_currency": {
+              "currency_symbol": "usd",
+              "decimals": 2
+            }
+          }
+        }
+      ],
+      "transfers": [
+        {
+          "priced_asset": {
+            "type": "asset_price",
+            "asset_identifier": {
+              "type": "solana",
+              "details": {
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                },
+                "type": "native"
+              }
+            },
+            "asset_info": {
+              "id": "c190e464-185e-48a6-8d80-763a61828173",
+              "asset_identifier": {
+                "type": "solana",
+                "details": {
+                  "type": "native",
+                  "chain": "solana_mainnet"
+                },
+                "chain": {
+                  "chain_type": "solana",
+                  "unique_id": "solana_mainnet",
+                  "name": "Solana Mainnet",
+                  "native_currency_symbol": "SOL",
+                  "native_currency_name": "Solana",
+                  "blockchain_explorer": {
+                    "transaction_url": "https://solscan.io/tx/",
+                    "address_url": "https://solscan.io/account/",
+                    "root_url": "https://solscan.io/",
+                    "transaction_format_url": "https://solscan.io/tx/%s",
+                    "address_format_url": "https://solscan.io/account/%s"
+                  },
+                  "logo_url": "https://logos.fordefi.com/chains/solana/mainnet.svg",
+                  "is_testnet": false
+                }
+              },
+              "name": "Solana",
+              "symbol": "SOL",
+              "decimals": 9,
+              "verified": true,
+              "metadata_uri": "",
+              "is_spam": false
+            },
+            "price": {
+              "price": "21715",
+              "price_float": "21715",
+              "fiat_currency": {
+                "currency_symbol": "usd",
+                "decimals": 2
+              }
+            }
+          },
+          "amount": "1000000",
+          "type": "native",
+          "from": {
+            "vault": {
+              "id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
+              "name": "Solana Vault",
+              "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim",
+            "type": "solana",
+            "address": "CtvSEG7ph7SQumMtbnSKtDTLoUQoy8bxPUcjwvmNgGim"
+          },
+          "to": {
+            "vault": {
+              "id": "d7c4eb85-89d5-45d7-a6b8-a11a4fb6173b",
+              "name": "Test Solana Vault",
+              "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+              "state": "active"
+            },
+            "explorer_url": "https://solscan.io/account/9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
+            "type": "solana",
+            "address": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS"
+          },
+          "price": {
+            "price": "21715",
+            "price_float": "21715",
+            "fiat_currency": {
+              "currency_symbol": "usd",
+              "decimals": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  "simulation_status_result": {
+    "simulation_status": "success",
+    "details": "not reverted"
+  }
+}
