@@ -1,10 +1,9 @@
 import os
-import ecdsa
 import datetime
-import hashlib
 import json
 import requests
 from api_requests.broadcast import broadcast_tx
+from signing.signer import sign
 
 request_json = {
             "vault_id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
@@ -35,20 +34,14 @@ request_json = {
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = "/api/v1/transactions"
 request_body = json.dumps(request_json)
-private_key_file = "./secret/private.pem"
 timestamp = datetime.datetime.now().strftime("%s")
 payload = f"{path}|{timestamp}|{request_body}"
 
-with open(private_key_file, "r") as f:
-    signing_key = ecdsa.SigningKey.from_pem(f.read())
-
-signature = signing_key.sign(
-    data=payload.encode(), hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_der
-)
-
 
 def ping(path, access_token):
-            
+
+    signature = sign(payload=payload)
+
     try:    
         resp_tx = broadcast_tx(path, access_token, signature, timestamp, request_body)
         resp_tx.raise_for_status()

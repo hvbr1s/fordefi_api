@@ -4,24 +4,17 @@ import datetime
 import json
 import base64
 import base58
-import ecdsa
-import hashlib
 from api_requests.broadcast import get_tx
+from signing.signer import sign
 
 transaction_id = "76b3048c-4707-4e9b-8089-69ebb998d2e1"
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = f"/api/v1/transactions/{transaction_id}"
 request_body = ""
-private_key_file = "./secret/private.pem"
 timestamp = datetime.datetime.now().strftime("%s")
 payload = f"{path}|{timestamp}|{request_body}"
 
-with open(private_key_file, "r") as f:
-    signing_key = ecdsa.SigningKey.from_pem(f.read())
-
-signature = signing_key.sign(
-    data=payload.encode(), hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_der
-)
+signature = sign(payload=payload)
 
 # Fetch raw signature
 fetch_raw_signature = get_tx(path, access_token, signature, timestamp, request_body)
