@@ -12,5 +12,8 @@ wheels/
 # .env
 .env
 
+# Secrets
 secret
 
+# Transactions
+response_data.json

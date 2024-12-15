@@ -3,11 +3,11 @@ import requests
 import datetime
 import json
 import base64
-import base58
+import base58   
 from api_requests.broadcast import get_tx
 from signing.signer import sign
 
-transaction_id = "76b3048c-4707-4e9b-8089-69ebb998d2e1"
+transaction_id = "3d186a7f-67c1-4cdf-8eb4-da5495ff2068"
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = f"/api/v1/transactions/{transaction_id}"
 request_body = ""
@@ -21,9 +21,9 @@ fetch_raw_signature = get_tx(path, access_token, signature, timestamp, request_b
 raw_transaction_base64 = fetch_raw_signature['raw_transaction']
 print(f"Raw signature -> {raw_transaction_base64}")
 
-# Convert base64 to bytes, then to base58
-raw_bytes = base64.b64decode(raw_transaction_base64)
-raw_transaction_base58 = base58.b58encode(raw_bytes).decode('ascii')
+# Convert base64 to bytes, then to base58 (Optional)
+# raw_bytes = base64.b64decode(raw_transaction_base64)
+# raw_transaction_base58 = base58.b58encode(raw_bytes).decode('ascii')
 
 # Jito API endpoint
 url = "https://mainnet.block-engine.jito.wtf/api/v1/transactions"
@@ -33,7 +33,12 @@ payload = {
     "jsonrpc": "2.0",
     "id": 1,
     "method": "sendTransaction",
-    "params": [raw_transaction_base58]
+    "params": [
+        raw_transaction_base64,
+            {
+                "encoding": "base64"
+            }
+    ]
 }
 
 # Set headers
