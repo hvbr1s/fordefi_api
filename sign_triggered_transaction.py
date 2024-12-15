@@ -1,10 +1,9 @@
 import os
-import ecdsa
 import datetime
-import hashlib
 import json
 import requests
 from api_requests.broadcast import broadcast_tx
+from signing.signer import sign
 
 # Fetch triggered transaction ID
 with open("./response_data.json", "r") as f:
@@ -20,19 +19,13 @@ request_json = {
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = f"/api/v1/transactions/{triggered_tx_id}/trigger-signing"
 request_body = json.dumps(request_json)
-private_key_file = "./secret/private.pem"
 timestamp = datetime.datetime.now().strftime("%s")
 payload = f"{path}|{timestamp}|{request_body}"
 
-with open(private_key_file, "r") as f:
-    signing_key = ecdsa.SigningKey.from_pem(f.read())
-
-signature = signing_key.sign(
-    data=payload.encode(), hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_der
-)
-
 
 def ping(path, access_token):
+
+    signature = sign(payload=payload)
             
     try:    
         resp_tx = broadcast_tx(path, access_token, signature, timestamp, request_body)

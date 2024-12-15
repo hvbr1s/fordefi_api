@@ -1,10 +1,9 @@
 import os
 import json
 import datetime
-import ecdsa
-import hashlib
 from dotenv import load_dotenv
 from api_requests.broadcast import broadcast_tx
+from signing.signer import sign
 from utils.tx_processor import process_transaction
 
 load_dotenv()
@@ -45,17 +44,11 @@ request_json = process_transaction(ecosystem, evm_chain, vault_id, destination, 
 
 access_token = os.getenv("FORDEFI_API_TOKEN")
 request_body = json.dumps(request_json)
-private_key_file = "./secret/private.pem"
 path = "/api/v1/transactions"
 timestamp = datetime.datetime.now().strftime("%s")
 payload = f"{path}|{timestamp}|{request_body}"
 
-with open(private_key_file, "r") as f:
-    signing_key = ecdsa.SigningKey.from_pem(f.read())
-
-signature = signing_key.sign(
-    data=payload.encode(), hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_der
-)
+signature = sign(payload=payload)
 
 try:
     resp_tx = broadcast_tx(path, access_token, signature, timestamp, request_body)
