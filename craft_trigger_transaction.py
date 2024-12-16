@@ -19,7 +19,7 @@ request_json = {
                 "to": "9BgxwZMyNzGUgp6hYXMyRKv3kSkyYZAMPGisqJgnXCFS",
                 "value": {
                     "type": "value",
-                    "value": "1000000"
+                    "value": "10000"
                 },
                 "asset_identifier": {
                     "type": "solana",
