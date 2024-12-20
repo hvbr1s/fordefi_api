@@ -5,7 +5,6 @@ import requests
 from api_requests.broadcast import broadcast_tx
 from signing.signer import sign
 
-# Simple transfer
 request_json = {
             "vault_id": "9597e08a-32a8-4f96-a043-a3e7f1675f8d",
             "note": "string",
@@ -31,8 +30,6 @@ request_json = {
                 }
             }
         }
-
-#
 
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = "/api/v1/transactions"
