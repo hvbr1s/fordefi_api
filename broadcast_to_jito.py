@@ -5,7 +5,7 @@ import json
 from api_requests.broadcast import get_tx
 from signing.signer import sign
 
-transaction_id = "9054c172-fe22-4d06-a1d4-0314f36f8a6e"
+transaction_id = "8e4ae9b0-1141-45a3-9b12-a053ab9bacfe"
 access_token = os.getenv("FORDEFI_API_TOKEN")
 path = f"/api/v1/transactions/{transaction_id}"
 request_body = ""
