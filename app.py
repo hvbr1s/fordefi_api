@@ -19,10 +19,10 @@ while True:
     ecosystem = input("🌐 Great! On which network should we broadcast the transaction? (SOL/EVM/SUI/TON/APT/BTC): ").strip().lower()
     if ecosystem == "evm":
         evm_chain =  input("🌐 Which EVM chain? ").strip().lower() or "ethereum"
-        if evm_chain in ["arbitrum", "optimism", "ethereum"]:
+        if evm_chain in ["arbitrum", "optimism", "ethereum", "bsc"]:
             break
         else:
-            print("❌ Invalid input. Please choose Arbitrum, Optimism, Ethereum")              
+            print("❌ Invalid input. Please choose Arbitrum, Optimism, Ethereum, Bsc")              
     elif ecosystem in ["sol", "sui", "ton", "apt", "btc"]:
         break
     else:
