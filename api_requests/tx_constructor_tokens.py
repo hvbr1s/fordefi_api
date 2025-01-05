@@ -8,8 +8,14 @@ def evm_tx_tokens(evm_chain, vault_id, destination, custom_note, value, token):
 
     print(f"Preparing to send {value} {token} on {evm_chain}")
 
-    if evm_chain == "arbitrum" and token =="usdc":
-        contract_address = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+    if evm_chain == "arbitrum":
+        if token =="usdc":
+            contract_address = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+        elif token == "usdt":
+            contract_address = "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+    elif evm_chain == "bsc":
+        if token == "usdt":
+            contract_address = "0x55d398326f99059fF775485246999027B3197955"
     else:
         contract_address = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" # USDC contract address on Ethereum mainnet
 
